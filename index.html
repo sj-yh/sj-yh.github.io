@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>视界萤火</title>
+    <style>
+        body, html {
+            background-color: black;
+            color: white;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            user-select: none; /* 禁止文字选中 */
+            transition: background-color 1s, color 1s; /* 过渡效果 */
+            overflow: hidden; /* 防止页面滚动 */
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        .title {
+            font-size: 70px; /* 增大字体大小 */
+            font-weight: bold; /* 加粗字体 */
+            margin-bottom: 20px;
+            letter-spacing: 10px; /* 字之间的间隔 */
+        }
+
+        .title span:first-child {
+            color: blue;
+            margin-right: 20px; /* 前两个字和后两个字之间的间隔 */
+        }
+
+        .title span:last-child {
+            color: white;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            width: fit-content;
+        }
+
+        .button {
+            cursor: pointer;
+            text-decoration: none;
+            color: white;
+            margin: 0 20px; /* 按钮之间的间隔 */
+            transition: text-decoration 0.3s;
+        }
+
+        .button:hover {
+            text-decoration: none;
+        }
+
+        .button:hover::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: -5px;
+            width: 100%;
+            height: 2px;
+            background-color: white;
+            animation: underline 1s; /* 添加动画效果 */
+        }
+
+        @keyframes underline {
+            from {
+                width: 0;
+            }
+            to {
+                width: 100%;
+            }
+        }
+
+        .icon {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+        }
+
+        .copyright {
+            position: absolute;
+            bottom: 10px;
+            color: white;
+            font-size: 14px;
+            text-align: center;
+            width: 100%;
+        }
+
+        .sun-icon, .moon-icon {
+            font-size: 24px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="title">
+            <span data-i18n="视界" data-i18n-eng="Vision">视界</span><span data-i18n="萤火" data-i18n-eng="Firefly">萤火</span>
+        </div>
+        <div class="buttons">
+            <a href="https://mr-gcs.github.io" class="button" data-i18n="成烁官网" data-i18n-eng="Download">成烁官网</a>
+            <a href="https://txc.qq.com/products/671005/" class="button" data-i18n="官方论坛" data-i18n-eng="Official Website">官方论坛</a>
+            <a href="#" class="button" data-i18n="加入我们" data-i18n-eng="Original">加入我们</a>
+        </div>
+    </div>
+    <div class="icon sun-icon" onclick="toggleTheme()">☀️</div>
+    <div class="copyright" data-i18n="©Horizon firefly 2024" data-i18n-eng="Copyright © Horizon firefly 2024">Copyright © Horizon firefly 2024</div>
+
+    <script>
+        let isDarkMode = true;
+
+        function toggleTheme() {
+            const body = document.body;
+            const icon = document.querySelector('.icon');
+            const buttons = document.querySelectorAll('.button');
+            const titleLastChild = document.querySelector('.title span:last-child');
+            const copyright = document.querySelector('.copyright');
+
+            if (isDarkMode) {
+                body.style.backgroundColor = 'white';
+                body.style.color = 'black';
+                icon.textContent = '🌙';
+                titleLastChild.style.color = 'black';
+                buttons.forEach(button => button.style.color = 'black');
+                copyright.style.color = 'black';
+            } else {
+                body.style.backgroundColor = 'black';
+                body.style.color = 'white';
+                icon.textContent = '☀️';
+                titleLastChild.style.color = 'white';
+                buttons.forEach(button => button.style.color = 'white');
+                copyright.style.color = 'white';
+            }
+            isDarkMode = !isDarkMode;
+        }
+
+        function switchLanguage(lang) {
+            const elements = document.querySelectorAll('[data-i18n]');
+            elements.forEach(element => {
+                element.textContent = element.getAttribute(`data-i18n-${lang}`);
+            });
+        }
+    </script>
+</body>
+</html>
